@@ -20,8 +20,18 @@ class RiotDaemon extends Daemon {
     // Run super
     super();
 
+  }
+
+  /**
+   * initialize function
+   *
+   * @param  {Eden}  eden
+   *
+   * @return {Promise}
+   */
+  static async initialize(eden) {
     // Set eden view
-    this.eden.register('pubsub', pubsub);
+    eden.register('pubsub', pubsub);
   }
 }
 

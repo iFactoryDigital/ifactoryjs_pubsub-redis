@@ -109,11 +109,11 @@ class RedisPubsub {
   once(key, fn) {
     // once
     const once = (...args) => {
-      // remove listener
-      this.off(key, once);
-
       // do function once
       fn(...args);
+
+      // remove listener
+      this.off(key, once);
     };
 
     // on event
