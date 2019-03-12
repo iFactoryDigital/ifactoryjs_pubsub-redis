@@ -147,11 +147,29 @@ class RedisPubsub {
    * @return {*}
    */
   get(key) {
-    // get from cache
-    return new Promise(resolve => this.__clients.cache.get(`${this.__prefix}.${key}`, (err, data) => {
-      // return resolved
-      resolve(JSON.parse(data));
-    }));
+    // check key
+    if (!key.includes('*')) {
+      // get from cache
+      return new Promise(resolve => this.__clients.cache.get(`${this.__prefix}.${key}`, (err, data) => {
+        // return resolved
+        resolve(JSON.parse(data));
+      }));
+    }
+
+    // Return locks
+    return new Promise((resolve, reject) => {
+      // get keys
+      this.__clients.cache.keys(`${this.__prefix}.${key}`, async (err, keys) => {
+        // Check error
+        if (err !== null) {
+          // Reject
+          return reject(err);
+        }
+
+        // Resolve
+        resolve(await Promise.all(keys.map(this.get)));
+      });
+    });
   }
 
   /**
