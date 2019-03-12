@@ -166,8 +166,20 @@ class RedisPubsub {
           return reject(err);
         }
 
+        // create map
+        const map = new Map();
+
+        // await keys
+        await Promise.all(keys.map(async (k) => {
+          // remove prefix
+          k = k.replace(`${this.__prefix}.`, '');
+
+          // set
+          map.set(k, await this.get(k));
+        }));
+
         // Resolve
-        resolve(await Promise.all(keys.map(this.get)));
+        resolve(map);
       });
     });
   }
