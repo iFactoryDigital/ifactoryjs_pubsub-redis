@@ -187,13 +187,18 @@ class RedisPubsub {
   /**
    * gets from redis cache
    *
-   * @param  {String} key
+   * @param  {String}  key
+   * @param  {*}       value
+   * @param  {Integer} ttl
    *
    * @return {*}
    */
-  set(key, value) {
+  set(key, value, ttl) {
+    // default ttl
+    ttl = ttl || (24 * 60 * 60 * 1000);
+
     // get from cache
-    return new Promise(resolve => this.__clients.cache.set(`${this.__prefix}.${key}`, JSON.stringify(value), resolve));
+    return new Promise(resolve => this.__clients.cache.set(`${this.__prefix}.${key}`, JSON.stringify(value), 'EX', ttl, resolve));
   }
 
   /**
