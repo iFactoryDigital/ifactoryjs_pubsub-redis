@@ -29,10 +29,10 @@ class RedisPubsub {
 
     // create clients
     this.__clients = {
-      pub   : redis.createClient(),
-      sub   : redis.createClient(),
-      lock  : redis.createClient(),
-      cache : redis.createClient(),
+      pub   : redis.createClient(config.get('redis')),
+      sub   : redis.createClient(config.get('redis')),
+      lock  : redis.createClient(config.get('redis')),
+      cache : redis.createClient(config.get('redis')),
     };
     this.__listeners = new Map();
 
