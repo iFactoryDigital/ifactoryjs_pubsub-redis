@@ -198,7 +198,7 @@ class RedisPubsub {
     ttl = ttl || (24 * 60 * 60 * 1000);
 
     // get from cache
-    return new Promise(resolve => this.__clients.cache.set(`${this.__prefix}.${key}`, JSON.stringify(value), 'EX', ttl, resolve));
+    return new Promise(resolve => this.__clients.cache.set(`${this.__prefix}.${key}`, JSON.stringify(value), 'PX', ttl, resolve));
   }
 
   /**
