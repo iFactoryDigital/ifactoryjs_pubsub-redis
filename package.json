@@ -1,5 +1,5 @@
 {
-  "name": "@edenjs/pubsub-redis",
+  "name": "@ifactoryjs/pubsub-redis",
   "description": "nothing yet",
   "version": "1.2.2",
   "dependencies": {
